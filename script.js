@@ -1,7 +1,7 @@
 const spinner = document.getElementById("spinner");
 // Set up variables for the API endpoint and your API key
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-const apiKey = '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';
+const apiKey = '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';
 
 // Function to send user input to the GPT API and display the response
 async function askGpt(question) {
