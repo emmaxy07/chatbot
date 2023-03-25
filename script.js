@@ -1,10 +1,11 @@
+
 const spinner = document.getElementById("spinner");
 // Set up variables for the API endpoint and your API key
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-const apiKey = process.env.API_KEY;
+
 
 // Function to send user input to the GPT API and display the response
-async function askGpt(question) {
+async function askGpt(question, apiKey) {
 spinner.style.display = "block";
     // Set up the API request body
     const requestBody = {
@@ -17,6 +18,7 @@ spinner.style.display = "block";
     ]
     };
 
+    try{
     // Send the API request using the Fetch API
     const response = await fetch(endpoint, {
         method: 'POST',
@@ -34,22 +36,34 @@ spinner.style.display = "none";
     chatbotResponse.innerHTML += `
     <div>
     <div class="chatbot-card"><strong>You:</strong> ${question}</div>`;
-    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr>`;
+    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr>`;} catch(error){
+        console.error(error);
+    } finally {
+        spinner.style.display = "none";
+    }
 }
+
+async function getApiKey() {
+    const response = await fetch('/api-key');
+    const apiKey = await response.text();
+    return apiKey;
+  }
 
 // Event listener to send user input to the chatbot when the Enter key is pressed
 const userInput = document.getElementById('user-input');
 const submit = document.querySelector('.submit');
-userInput.addEventListener('keydown', function(event) {
+userInput.addEventListener('keydown', async function(event) {
     if (event.key === 'Enter') {
         const question = event.target.value;
         event.target.value = '';
-        askGpt(question);
+        const apiKey = await getApiKey();
+        askGpt(question, apiKey);
     }
 });
 
-submit.addEventListener('click', function(){
+submit.addEventListener('click', async function(){
     const question = userInput.value;
     userInput.value = '';
-    askGpt(question);
+    const apiKey = await getApiKey();
+    askGpt(question, apiKey);
 })
