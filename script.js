@@ -35,7 +35,7 @@ spinner.style.display = "none";
     chatbotResponse.innerHTML += `
     <div>
     <div class="chatbot-card"><strong>You:</strong> ${question}</div>`;
-    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr style="height: 3px; 
+    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr style="height: 2px; 
     border: none;
     background-color: black;
     margin: 10px 0;">`;} catch(error){
