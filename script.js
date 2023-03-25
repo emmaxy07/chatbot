@@ -1,8 +1,6 @@
-
 const spinner = document.getElementById("spinner");
 // Set up variables for the API endpoint and your API key
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-
 
 // Function to send user input to the GPT API and display the response
 async function askGpt(question, apiKey) {
@@ -31,12 +29,16 @@ spinner.style.display = "block";
 spinner.style.display = "none";
     // Parse the API response and display the generated text
     const data = await response.json();
+    console.log(data)
     const text = data.choices[0].message.content;
     const chatbotResponse = document.getElementById('answer');
     chatbotResponse.innerHTML += `
     <div>
     <div class="chatbot-card"><strong>You:</strong> ${question}</div>`;
-    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr>`;} catch(error){
+    chatbotResponse.innerHTML += `<div class="chatbot-card"><strong>Chatbot:</strong> ${text}</div> </div> <hr style="height: 3px; 
+    border: none;
+    background-color: black;
+    margin: 10px 0;">`;} catch(error){
         console.error(error);
     } finally {
         spinner.style.display = "none";
@@ -44,7 +46,7 @@ spinner.style.display = "none";
 }
 
 async function getApiKey() {
-    const response = await fetch('/api-key');
+    const response = await fetch('http://localhost:3000/api-key');
     const apiKey = await response.text();
     return apiKey;
   }
