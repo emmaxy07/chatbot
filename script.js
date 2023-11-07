@@ -47,8 +47,8 @@ spinner.style.display = "none";
 
 async function getApiKey() {
     const response = await fetch('http://localhost:3000/api-key');
-    const apiKey = await response.text();
-    return apiKey;
+    const data = await response.json();
+    return data.apiKey;
   }
 
 // Event listener to send user input to the chatbot when the Enter key is pressed
